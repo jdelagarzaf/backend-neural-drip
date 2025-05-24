@@ -13,10 +13,16 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-app.get('/api/users', async (req, res) => {
-  const { rows } = await pool.query('SELECT * FROM users');
+app.get('/api/meta_venta', async (req, res) => {
+  const { rows } = await pool.query('SELECT * FROM meta_venta');
   res.json(rows);
 });
+
+app.get('/api/db-check', async (req, res) => {
+  const result = await pool.query('SELECT version()');
+  res.send(result.rows[0]);
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
