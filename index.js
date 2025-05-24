@@ -1,8 +1,7 @@
-import express from 'express';
-import pg from 'pg';
-import cors from 'cors';
+const express = require('express');
+const cors = require('cors');
+const { Pool } = require('pg');
 
-const { Pool } = pg;
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -11,7 +10,7 @@ app.use(express.json());
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }, // Required on Railway
+  ssl: { rejectUnauthorized: false },
 });
 
 app.get('/api/users', async (req, res) => {
